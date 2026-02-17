@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"></script>
+    <script src="./dist/bundle.js"></script>
+    <script src="./src/lib/build/leader-line.min.js"></script>
+
+
+    <style>
+        #start,
+        #end {
+            width: 50px;
+            height: 20px;
+            background-color: red;
+        }
+
+        #dbPdf,
+        #the-canvas {
+            position: relative;
+        }
+
+
+        #db_curr {
+            position: absolute;
+
+            /* width: 5px;
+            height: 5px;
+            background-color: blue; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="start">start</div>
+    <div id="end">end</div>
+    <div class="row">
+
+
+        <div class="col-6">
+            <input type="file" id="file">
+        </div>
+        <div class="col-6" id="cord">
+
+        </div>
+        <div class="col-12">
+            werwerewr
+        </div>
+        <div class="col-8" id="dbPdf">
+
+            <canvas id="the-canvas" class="img-fluid">
+
+            </canvas>
+            <div id="db_curr"></div>
+
+        </div>
+        <div class="col-4" id="list">
+
+
+        </div>
+    </div>
+    <script>
+        var line;
+        var page = {};
+        line = new LeaderLine(
+            document.getElementById('start'),
+            document.getElementById('end')
+        );
+        setTimeout(() => {
+
+            dbPDF.ev(document.getElementById("list"), "mousemove").subscribe(r => {
+                console.log("move=>", r.srcElement.id);
+
+
+                let f = arrList.products.find(d => d.id == r.srcElement.id)
+                console.log(f.cord);
+                let db_curr = document.getElementById("db_curr");
+                db_curr.style.position = "absolute";
+                db_curr.style.left = f.cord[0] + "px";
+                db_curr.style.top = f.cord[1] + "px";
+                db_curr.style.width = f.cord[2] + "px";
+                db_curr.style.height = f.cord[3] + "px";
+
+
+                line.start = document.getElementById(f.id);
+                line.end = db_curr;
+                line.position();
+                line.show();
+            })
+            // dbPDF.ev(document.getElementsByClassName("action"), "click").subscribe(r => {
+
+
+
+            // })
+        }, 2000)
+
+        dbPDF.ev(document.getElementById("file"), 'change')
+            .pipe(
+                dbPDF.mm(d => dbPDF.f(dbPDF.pdf({ pdfData: d.target.files[0], pageNumber: 1, scale: 1, id: "the-canvas" }))),
+                dbPDF.t(d => {
+                    let canvas = document.getElementById('the-canvas');
+                    let context = canvas.getContext('2d');
+                    for (let i = 0; i < arrList.products.length; i++) {
+                        context.lineWidth = 1;
+                        context.fillStyle = '#e61b8412';
+                        context.rect(...arrList.products[i].cord);
+                        context.fill();
+                    }
+                }),
+                dbPDF.mm(x => dbPDF.ev(document.getElementById("the-canvas"), "mousemove"))
+            ).subscribe(ev => {
+                // 
+                line.hide();
+                for (let i = 0; i < arrList.products.length; i++) {
+                    if (ev.offsetX >= arrList.products[i].cord[0] &&
+                        ev.offsetX <= arrList.products[i].cord[0] + arrList.products[i].cord[2] &&
+                        ev.offsetY >= arrList.products[i].cord[1] &&
+                        ev.offsetY <= arrList.products[i].cord[1] + arrList.products[i].cord[3]
+                    ) {
+                        const visible = dbPDF.isVisible(
+                            document.getElementById(arrList.products[i].id),
+                            document.getElementById('list')
+                        );
+                        list.scrollTo({
+                            top: document.getElementById(arrList.products[i].id).offsetTop - 94,
+                            behavior: "smooth"
+                        });
+                        let dbCurr = document.getElementById("db_curr");
+                        line.end = document.getElementById(arrList.products[i].id);
+                        dbCurr.style.left = `${ev.offsetX}px`;
+                        dbCurr.style.top = `${ev.offsetY}px`;
+
+                        line.start = document.getElementById("db_curr");
+
+                        line.position();
+                        line.show();
+                    }
+                }
+                // 
+            })
+        var arrList = {};
+        function getData() {
+            fetch("https://dummyjson.com/products").then(r => r.json()).then(r => {
+                arrList = r;
+                // 
+                for (let i = 0; i < arrList.products.length; i++) {
+                    arrList.products[i].cord = [i, (15 * i), 10, 10];
+                }
+                // 
+                let list = document.getElementById("list")
+                list.style.height = "200px"
+                list.style.overflow = "scroll";
+                let ul = document.createElement("ul");
+                ul.innerHTML = r.products.map(d => {
+                    return `<li id="${d.id}" class="action w-100">${d.title}</li>`;
+                }).join("")
+                list.appendChild(ul);
+
+            })
+        }
+        getData();
+
+
+
+    </script>
+</body>
+
+</html>

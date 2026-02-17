@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "build": "webpack -w  --config webpack.config.js"
+  },
+  "devDependencies": {
+    "leader-line": "^1.0.8",
+    "path": "^0.12.7",
+    "webpack": "^5.105.2",
+    "webpack-cli": "^6.0.1"
+  }
+}

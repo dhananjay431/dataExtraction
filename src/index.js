@@ -12,7 +12,6 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.mjs';
 
 export const pdf = async function ({ pdfData, pageNumber, scale, id }) {
     let base64 = await pdfToBase64(pdfData)
-    debugger;
     let loadingTask = pdfjsLib.getDocument({ data: atob(base64.split(",")[1]) });
     let pdf = await loadingTask.promise;
     let page = await pdf.getPage(pageNumber);

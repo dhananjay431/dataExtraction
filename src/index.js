@@ -54,3 +54,36 @@ export const isVisible = function (el, container) {
         elRect.bottom > containerRect.top
     );
 }
+
+export const createSvg = function (w, h) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", w);
+    svg.setAttribute("height", h);
+    svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+    //   svg.style.border = "1px solid black";
+    return svg
+}
+
+export const createPolygon = function (points, fill, stroke) {
+    const svgNS = "http://www.w3.org/2000/svg";
+    const polygon = document.createElementNS(svgNS, "polygon");
+    polygon.setAttribute("points", points);
+    polygon.setAttribute("fill", fill);
+    // polygon.setAttribute("fill", "rgba(0,150,255,0.3)");
+    polygon.setAttribute("stroke", stroke);
+    return polygon
+}
+
+export const shape = function (ctx, s, ...end) {
+    ctx.beginPath();
+    ctx.moveTo(s.x, s.y);
+    for (let i = 0; i < end.length; i++) {
+        ctx.lineTo(end[i].x, end[i].y);
+    }
+    ctx.lineTo(s.x, s.y);
+    ctx.fillStyle = "rgba(0, 150, 255, 0.3)";
+    ctx.fill();
+    ctx.strokeStyle = "blue";
+    ctx.stroke()
+}

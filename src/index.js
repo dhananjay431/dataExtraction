@@ -32,6 +32,9 @@ export const x = rxjs;
 export const mm = mergeMap;
 
 export const t = tap;
+export const pp = function (a, ...b) {
+    return a.pipe(...b)
+};
 
 function pdfToBase64(file) {
     return new Promise((resolve, reject) => {

@@ -86,7 +86,7 @@
                 console.log(f.cord);
                 let db_curr = document.getElementById("db_curr");
                 db_curr.style.position = "absolute";
-                db_curr.style.left = f.cord[0] + "px";
+                db_curr.style.left = f.cord[0] + f.cord[2] + "px";
                 db_curr.style.top = f.cord[1] + "px";
                 db_curr.style.width = f.cord[2] + "px";
                 db_curr.style.height = f.cord[3] + "px";
@@ -104,21 +104,23 @@
             // })
         }, 2000)
 
-        dbPDF.ev(document.getElementById("file"), 'change')
-            .pipe(
-                dbPDF.mm(d => dbPDF.f(dbPDF.pdf({ pdfData: d.target.files[0], pageNumber: 1, scale: 1, id: "the-canvas" }))),
-                dbPDF.t(d => {
-                    let canvas = document.getElementById('the-canvas');
-                    let context = canvas.getContext('2d');
-                    for (let i = 0; i < arrList.products.length; i++) {
-                        context.lineWidth = 1;
-                        context.fillStyle = '#e61b8412';
-                        context.rect(...arrList.products[i].cord);
-                        context.fill();
-                    }
-                }),
-                dbPDF.mm(x => dbPDF.ev(document.getElementById("the-canvas"), "mousemove"))
-            ).subscribe(ev => {
+        dbPDF.pp(
+            dbPDF.ev(document.getElementById("file"), 'change'),
+            dbPDF.mm(d => dbPDF.f(dbPDF.pdf({ pdfData: d.target.files[0], pageNumber: 1, scale: 1, id: "the-canvas" }))),
+            dbPDF.t(d => {
+                let canvas = document.getElementById('the-canvas');
+                let context = canvas.getContext('2d');
+                for (let i = 0; i < arrList.products.length; i++) {
+                    context.lineWidth = 1;
+                    context.fillStyle = '#e61b8412';
+                    context.rect(...arrList.products[i].cord);
+                    context.fill();
+                }
+            }),
+            dbPDF.mm(x => dbPDF.ev(document.getElementById("the-canvas"), "mousemove"))
+        )
+
+            .subscribe(ev => {
                 // 
                 line.hide();
                 for (let i = 0; i < arrList.products.length; i++) {

@@ -1,13 +1,13 @@
-import "./lib/build/pdf.mjs";
+import "./lib/pdf.mjs";
 //import "../node_modules/leader-line/leader-line.min.js";
 // import "./lib/build/leader-line.js";
 
 // import { WorkerMessageHandler } from "./lib/build/pdf.worker.mjs"
-import { Subject, Observable, from, fromEvent, mergeMap, tap } from "./lib/build/rxjs.umd.min.js"
-import * as rxjs from "./lib/build/rxjs.umd.min.js";
+import { Subject, Observable, from, fromEvent, mergeMap, tap } from "./lib/rxjs.umd.min.js"
+import * as rxjs from "./lib/rxjs.umd.min.js";
 var { pdfjsLib } = globalThis;
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = './src/lib/build/pdf.worker.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc = './pdf.worker.mjs';
 // pdfjsLib.GlobalWorkerOptions.workerSrc = WorkerMessageHandler;
 
 export const pdf = async function ({ pdfData, pageNumber, scale, id }) {

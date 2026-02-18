@@ -1,8 +1,10 @@
 const path = require("path");
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'development',
     entry: "./src/index.js",
+
     externals: {
         jquery: 'jQuery',
         LeaderLine: 'LeaderLine'
@@ -19,4 +21,11 @@ module.exports = {
         // Fixes 'window is not defined' issues in Node environments
         globalObject: "this",
     },
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: './src/lib/build', to: './' }
+            ]
+        })
+    ]
 };

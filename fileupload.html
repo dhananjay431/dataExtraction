@@ -1,69 +1,68 @@
 <!doctype html>
 <html lang="en">
   <head>
-/* Centers the entire container in the viewport */
-.upload-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f7f6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    <style>
+      /* Centers the entire container in the viewport */
+      .upload-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f7f6;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-/* The card styling */
-.upload-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 320px;
-}
+      /* The card styling */
+      .upload-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 320px;
+      }
 
-/* Hide the ugly default input */
-input[type="file"] {
-  display: none;
-}
+      /* Hide the ugly default input */
+      input[type="file"] {
+        display: none;
+      }
 
-/* Style the label to look like a button */
-.custom-file-upload {
-  display: inline-block;
-  padding: 12px 24px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-  margin-top: 1rem;
-}
+      /* Style the label to look like a button */
+      .custom-file-upload {
+        display: inline-block;
+        padding: 12px 24px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+        margin-top: 1rem;
+      }
 
-.custom-file-upload:hover {
-  background-color: #0056b3;
-}
+      .custom-file-upload:hover {
+        background-color: #0056b3;
+      }
 
-#file-name {
-  margin-top: 15px;
-  font-size: 0.9rem;
-  color: #666;
-}
+      #file-name {
+        margin-top: 15px;
+        font-size: 0.9rem;
+        color: #666;
+      }
+    </style>
   </head>
   <body>
-    
-<div class="upload-container">
-  <div class="upload-card">
-    <h3>Upload Files</h3>
-    <p>Select a document to upload</p>
-    
-    <label for="file-upload" class="custom-file-upload">
-      Choose File
-    </label>
-    <input id="file-upload" type="file" />
-    
-    <div id="file-name">No file chosen</div>
-  </div>
-</div>
+    <div class="upload-container">
+      <div class="upload-card">
+        <h3>Upload Files</h3>
+        <p>Select a document to upload</p>
 
+        <label for="file-upload" class="custom-file-upload">
+          Choose File
+        </label>
+        <input id="file-upload" type="file" />
 
-    </body>
+        <div id="file-name">No file chosen</div>
+      </div>
+    </div>
+  </body>
 </html>

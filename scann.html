@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <style>
+      :root {
+        --laser-color: #00ff88; /* Cyber Green */
+        --bg-dark: #ccc;
+      }
+
+      .viewport {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: var(--bg-dark);
+      }
+
+      .document {
+        position: relative;
+        width: 80%;
+        height: 80%;
+        background: #ffffff;
+        border-radius: 4px;
+        padding: 20px;
+        overflow: hidden; /* Keeps the laser inside the paper */
+        box-shadow: 0 0 40px rgba(0, 255, 136, 0.1);
+      }
+
+      /* Interior Design Elements */
+      .header-strip {
+        height: 12px;
+        background: #e2e8f0;
+        width: 40%;
+        margin-bottom: 20px;
+        border-radius: 2px;
+      }
+      .text-line {
+        height: 6px;
+        background: #f1f5f9;
+        margin-bottom: 10px;
+        border-radius: 2px;
+      }
+      .text-line.long {
+        width: 100%;
+      }
+      .text-line.medium {
+        width: 80%;
+      }
+      .text-line.short {
+        width: 60%;
+      }
+
+      /* The Laser Animation */
+      .scanner-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: var(--laser-color);
+        /* Adding a glowing trail */
+        box-shadow:
+          0 0 15px 3px var(--laser-color),
+          0 0 30px 5px rgba(18, 35, 136, 0.5);
+        z-index: 5;
+        animation: scanUpDown 3s ease-in-out infinite;
+      }
+
+      /* Keyframes for the Up and Down motion */
+      @keyframes scanUpDown {
+        0% {
+          top: 0%;
+        }
+        50% {
+          top: 100%;
+          transform: translateY(
+            -100%
+          ); /* Keeps bar from disappearing at bottom */
+        }
+        100% {
+          top: 0%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="viewport">
+      <div class="document">
+        <div class="header-strip"></div>
+        <div class="text-line long"></div>
+        <div class="text-line medium"></div>
+        <div class="text-line short"></div>
+        <div class="text-line long"></div>
+
+        <div class="scanner-bar"></div>
+      </div>
+    </div>
+  </body>
+</html>
